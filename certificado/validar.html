@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verificación de Certificado</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f5f3ef;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.box{
+background:white;
+padding:40px;
+border-radius:10px;
+box-shadow:0 4px 20px rgba(0,0,0,0.1);
+text-align:center;
+width:420px;
+}
+
+h1{
+color:#8c3b1f;
+}
+
+.codigo{
+font-weight:bold;
+margin-top:10px;
+}
+
+a{
+display:inline-block;
+margin-top:20px;
+padding:12px 20px;
+background:#8c3b1f;
+color:white;
+text-decoration:none;
+border-radius:5px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h1>Validación de Certificado</h1>
+
+<p>Código:</p>
+
+<div class="codigo" id="codigo"></div>
+
+<div id="resultado"></div>
+
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+const codigo = params.get("codigo");
+
+document.getElementById("codigo").textContent = codigo;
+
+const ruta = "../certificados-gsg/" + codigo + ".pdf";
+
+fetch(ruta)
+.then(res=>{
+
+if(res.ok){
+
+document.getElementById("resultado").innerHTML =
+"<a href='"+ruta+"' target='_blank'>Ver certificado</a>";
+
+}else{
+
+document.getElementById("resultado").innerHTML =
+"Certificado no encontrado";
+
+}
+
+})
+.catch(()=>{
+document.getElementById("resultado").innerHTML =
+"Error de verificación";
+});
+
+</script>
+
+</body>
+</html>
